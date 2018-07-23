@@ -1,0 +1,36 @@
+{
+  "name": "@illinois/student-github-provisioner",
+  "version": "1.0.0",
+  "description": "A microservice to privision GitHub repositories for students",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwalters512/student-github-provisioner.git"
+  },
+  "author": "Nathan Walters",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nwalters512/student-github-provisioner/issues"
+  },
+  "homepage": "https://github.com/nwalters512/student-github-provisioner#readme",
+  "dependencies": {
+    "@material-ui/core": "^1.4.1",
+    "axios": "^0.18.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-rewrite": "0.0.4",
+    "express-urlrewrite": "^1.2.0",
+    "js-yaml": "^3.12.0",
+    "jss": "^9.8.7",
+    "next": "^6.1.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-jss": "^8.6.1"
+  }
+}
