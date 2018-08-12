@@ -8,6 +8,7 @@ import SelectCourse from '../components/select-course'
 import ConfirmCourse from '../components/confirm-course'
 import CreatingRepo from '../components/creating-repo'
 import RepoCreated from '../components/repo-created'
+import ErrorPage from '../components/error'
 
 import { whoami, createRepo } from '../client-data'
 
@@ -26,7 +27,7 @@ const styles = _theme => ({
 const transitionMatrix = {
   'loadingIdentity': {
     'success': 'selectCourse',
-    'error': null,
+    'error': 'error',
   },
   'selectCourse': {
     'select': 'confirmCourse',
@@ -37,9 +38,12 @@ const transitionMatrix = {
   },
   'creatingRepo': {
     'success': 'repoCreated',
-    'error': null,
+    'error': 'error',
   },
   'repoCreated': {},
+  'error': {
+    'retry': 'loadingIdentity',
+  }
 }
 
 class Index extends React.Component {
@@ -53,12 +57,7 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
-    whoami().then(data => {
-      this.transition('success', data)
-    }).catch((err) => {
-      console.error(err)
-      this.transition('error')
-    })
+    this.loadIdentity()
   }
 
   transition(action, extraState = {}) {
@@ -85,6 +84,20 @@ class Index extends React.Component {
       console.error(err)
       this.transition('error')
     })
+  }
+
+  loadIdentity() {
+    whoami().then(data => {
+      this.transition('success', data)
+    }).catch((err) => {
+      console.error(err)
+      this.transition('error')
+    })
+  }
+
+  retry() {
+    this.transition('retry')
+    this.loadIdentity()
   }
 
   render() {
@@ -124,6 +137,11 @@ class Index extends React.Component {
       case 'repoCreated':
         content = (
           <RepoCreated repoStatus={repoStatus} repoUrl={repoUrl} />
+        )
+        break;
+      case 'error':
+        content = (
+          <ErrorPage onRetry={() => this.retry()} />
         )
         break;
       default:

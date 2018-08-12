@@ -24,6 +24,7 @@
   "homepage": "https://github.com/nwalters512/student-github-provisioner#readme",
   "dependencies": {
     "@material-ui/core": "^1.4.1",
+    "@material-ui/icons": "^2.0.1",
     "@octokit/rest": "^15.9.5",
     "axios": "^0.18.0",
     "dotenv": "^6.0.0",
