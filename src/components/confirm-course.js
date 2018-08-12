@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
 
-import config from '../config';
+import config from '../config'
 
 const styles = theme => ({
   buttonContainer: {
@@ -16,7 +16,7 @@ const styles = theme => ({
   },
   backButton: {
     marginRight: 'auto',
-  }
+  },
 })
 
 const ConfirmCourse = ({
@@ -34,8 +34,8 @@ const ConfirmCourse = ({
           Let&apos;s confirm that
         </Typography>
         <Typography>
-          This will create a repo for <strong>{netid}</strong> in
-          the course <strong>{course.shortname}</strong>.
+          This will create a repo for <strong>{netid}</strong> in the course{' '}
+          <strong>{course.shortname}</strong>.
         </Typography>
         <div className={classes.buttonContainer}>
           <Button
@@ -45,11 +45,7 @@ const ConfirmCourse = ({
           >
             Back
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onConfirmed}
-          >
+          <Button variant="contained" color="primary" onClick={onConfirmed}>
             Create repo
           </Button>
         </div>
@@ -66,4 +62,4 @@ ConfirmCourse.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(ConfirmCourse);
+export default withStyles(styles)(ConfirmCourse)

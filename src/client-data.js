@@ -14,7 +14,7 @@ export const whoami = async () => {
   return res.data
 }
 
-export const createRepo = async (courseId) => {
+export const createRepo = async courseId => {
   const res = await axios.post(`/api/github/${courseId}`)
   return res.data
 }

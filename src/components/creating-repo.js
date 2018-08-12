@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -15,18 +15,14 @@ const styles = theme => ({
   },
   progress: {
     marginTop: 4 * theme.spacing.unit,
-  }
+  },
 })
 
-const CreatingRepo = ({
-  classes
-}) => {
+const CreatingRepo = ({ classes }) => {
   return (
     <Card>
       <CardContent className={classes.cardContent}>
-        <Typography>
-          We'll have your repo ready soon!
-        </Typography>
+        <Typography>We'll have your repo ready soon!</Typography>
         <CircularProgress className={classes.progress} />
       </CardContent>
     </Card>
@@ -37,4 +33,4 @@ CreatingRepo.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(CreatingRepo);
+export default withStyles(styles)(CreatingRepo)

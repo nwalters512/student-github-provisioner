@@ -28,19 +28,17 @@ const styles = theme => ({
   },
 })
 
-const ErrorPage = ({
-  classes,
-  onRetry,
-}) => {
+const ErrorPage = ({ classes, onRetry }) => {
   return (
     <Card>
       <CardContent>
         <Typography variant="headline" gutterBottom>
-          <ErrorIcon className={classes.icon} color="error"/>
+          <ErrorIcon className={classes.icon} color="error" />
           Womp womp
         </Typography>
         <Typography>
-          Something went wrong. Rentry in a bit, and contact course staff if the problem persists.
+          Something went wrong. Rentry in a bit, and contact course staff if the
+          problem persists.
         </Typography>
         <div className={classes.buttonContainer}>
           <Button
@@ -61,4 +59,4 @@ ErrorPage.propTypes = {
   onRetry: PropTypes.func.isRequired,
 }
 
-export default withStyles(styles)(ErrorPage);
+export default withStyles(styles)(ErrorPage)

@@ -19,31 +19,31 @@ const styles = _theme => ({
     margin: 'auto',
     marginTop: '30px',
     paddingLeft: '20px',
-    paddingRight: '20px'
-  }
+    paddingRight: '20px',
+  },
 })
 
 // State machines? In my app? It's more likely than you think!
 const transitionMatrix = {
-  'loadingIdentity': {
-    'success': 'selectCourse',
-    'error': 'error',
+  loadingIdentity: {
+    success: 'selectCourse',
+    error: 'error',
   },
-  'selectCourse': {
-    'select': 'confirmCourse',
+  selectCourse: {
+    select: 'confirmCourse',
   },
-  'confirmCourse': {
-    'confirm': 'creatingRepo',
-    'cancel': 'selectCourse',
+  confirmCourse: {
+    confirm: 'creatingRepo',
+    cancel: 'selectCourse',
   },
-  'creatingRepo': {
-    'success': 'repoCreated',
-    'error': 'error',
+  creatingRepo: {
+    success: 'repoCreated',
+    error: 'error',
   },
-  'repoCreated': {},
-  'error': {
-    'retry': 'loadingIdentity',
-  }
+  repoCreated: {},
+  error: {
+    retry: 'loadingIdentity',
+  },
 }
 
 class Index extends React.Component {
@@ -61,7 +61,7 @@ class Index extends React.Component {
   }
 
   transition(action, extraState = {}) {
-    const { page } = this.state;
+    const { page } = this.state
     console.log(`Transitioning from ${page} with action ${action}`)
     const nextPage = transitionMatrix[page][action]
     if (nextPage) {
@@ -75,24 +75,28 @@ class Index extends React.Component {
     this.transition('confirm')
 
     const { courseId } = this.state
-    createRepo(courseId).then(data => {
-      this.transition('success', {
-        repoStatus: data.status,
-        repoUrl: data.url,
+    createRepo(courseId)
+      .then(data => {
+        this.transition('success', {
+          repoStatus: data.status,
+          repoUrl: data.url,
+        })
       })
-    }).catch(err => {
-      console.error(err)
-      this.transition('error')
-    })
+      .catch(err => {
+        console.error(err)
+        this.transition('error')
+      })
   }
 
   loadIdentity() {
-    whoami().then(data => {
-      this.transition('success', data)
-    }).catch((err) => {
-      console.error(err)
-      this.transition('error')
-    })
+    whoami()
+      .then(data => {
+        this.transition('success', data)
+      })
+      .catch(err => {
+        console.error(err)
+        this.transition('error')
+      })
   }
 
   retry() {
@@ -101,24 +105,18 @@ class Index extends React.Component {
   }
 
   render() {
-    const {
-      page,
-      netid,
-      courseId,
-      repoStatus,
-      repoUrl,
-    } = this.state;
-    const { classes } = this.props;
+    const { page, netid, courseId, repoStatus, repoUrl } = this.state
+    const { classes } = this.props
 
-    let content;
+    let content
     switch (page) {
       case 'selectCourse':
         content = (
           <SelectCourse
-            onCourseSelected={(id) => this.transition('select', { courseId: id })}
+            onCourseSelected={id => this.transition('select', { courseId: id })}
           />
         )
-        break;
+        break
       case 'confirmCourse':
         content = (
           <ConfirmCourse
@@ -128,26 +126,20 @@ class Index extends React.Component {
             onCanceled={() => this.transition('cancel', { courseId: null })}
           />
         )
-        break;
+        break
       case 'creatingRepo':
-        content = (
-          <CreatingRepo />
-        )
-        break;
+        content = <CreatingRepo />
+        break
       case 'repoCreated':
-        content = (
-          <RepoCreated repoStatus={repoStatus} repoUrl={repoUrl} />
-        )
-        break;
+        content = <RepoCreated repoStatus={repoStatus} repoUrl={repoUrl} />
+        break
       case 'error':
-        content = (
-          <ErrorPage onRetry={() => this.retry()} />
-        )
-        break;
+        content = <ErrorPage onRetry={() => this.retry()} />
+        break
       default:
-        content = null;
+        content = null
     }
-    
+
     return (
       <div>
         <AppBar position="static">
@@ -157,12 +149,10 @@ class Index extends React.Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <div className={classes.container}>
-          {content}
-        </div>
+        <div className={classes.container}>{content}</div>
       </div>
     )
   }
 }
 
-export default withStyles(styles)(Index);
+export default withStyles(styles)(Index)

@@ -1,19 +1,21 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
-import PropTypes from 'prop-types';
-import Document, { Head, Main, NextScript } from 'next/document';
-import flush from 'styled-jsx/server';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Document, { Head, Main, NextScript } from 'next/document'
+import flush from 'styled-jsx/server'
 
-import { baseUrl } from '../util';
+import { baseUrl } from '../util'
 
 class MyDocument extends Document {
   render() {
-    const { pageContext } = this.props;
+    const { pageContext } = this.props
 
     // If we're deployed to anywhere other than the server root, we'll have to
     // store our root path that here so that the client can access it.
     const script = {
-      __html: `window.BASE_URL = '${baseUrl}'; window.NODE_ENV = '${process.env.NODE_ENV}';`,
+      __html: `window.BASE_URL = '${baseUrl}'; window.NODE_ENV = '${
+        process.env.NODE_ENV
+      }';`,
     }
 
     return (
@@ -30,7 +32,10 @@ class MyDocument extends Document {
             }
           />
           {/* PWA primary color */}
-          <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
+          <meta
+            name="theme-color"
+            content={pageContext.theme.palette.primary.main}
+          />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
@@ -42,7 +47,7 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </html>
-    );
+    )
   }
 }
 
@@ -70,19 +75,19 @@ MyDocument.getInitialProps = ctx => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext;
+  let pageContext
   const page = ctx.renderPage(Component => {
     const WrappedComponent = props => {
-      pageContext = props.pageContext;
-      return <Component {...props} />;
-    };
+      pageContext = props.pageContext
+      return <Component {...props} />
+    }
 
     WrappedComponent.propTypes = {
       pageContext: PropTypes.object.isRequired,
-    };
+    }
 
-    return WrappedComponent;
-  });
+    return WrappedComponent
+  })
 
   return {
     ...page,
@@ -93,12 +98,14 @@ MyDocument.getInitialProps = ctx => {
         <style
           id="jss-server-side"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
+          dangerouslySetInnerHTML={{
+            __html: pageContext.sheetsRegistry.toString(),
+          }}
         />
         {flush() || null}
       </React.Fragment>
     ),
-  };
-};
+  }
+}
 
-export default MyDocument;
+export default MyDocument

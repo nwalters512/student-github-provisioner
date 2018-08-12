@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
 
-import config from '../config';
+import config from '../config'
 
 import CourseList from './course-list'
 
@@ -16,8 +16,8 @@ const SelectCourse = ({ onCourseSelected }) => (
         Hey there!
       </Typography>
       <Typography>
-        This tool will help you create a GitHub repository for your course.
-        To get started, select your course from the list below.
+        This tool will help you create a GitHub repository for your course. To
+        get started, select your course from the list below.
       </Typography>
     </CardContent>
     <CourseList courses={config.courses} onCourseSelected={onCourseSelected} />
@@ -28,4 +28,4 @@ SelectCourse.propTypes = {
   onCourseSelected: PropTypes.func.isRequired,
 }
 
-export default SelectCourse;
+export default SelectCourse

@@ -9,9 +9,9 @@ const CourseList = ({ courses, onCourseSelected }) => (
   <List>
     {courses.map(course => (
       <ListItem
-      button
-      key={course.id}
-      onClick={() => onCourseSelected(course.id)}
+        button
+        key={course.id}
+        onClick={() => onCourseSelected(course.id)}
       >
         <ListItemText primary={course.shortname} secondary={course.name} />
       </ListItem>
@@ -20,11 +20,13 @@ const CourseList = ({ courses, onCourseSelected }) => (
 )
 
 CourseList.propTypes = {
-  courses: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    shortname: PropTypes.string
-  })),
+  courses: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      shortname: PropTypes.string,
+    })
+  ),
   onCourseSelected: PropTypes.func.isRequired,
 }
 

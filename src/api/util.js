@@ -1,4 +1,4 @@
-module.exports.getIdentity = (req) => {
+module.exports.getIdentity = req => {
   if (process.env.NODE_ENV === 'development') {
     // Fake data
     const netid = process.env.NETID || 'dev'
@@ -10,7 +10,7 @@ module.exports.getIdentity = (req) => {
   }
   const email = req.get('eppn')
   if (!email || email.length === 0) {
-    return null;
+    return null
   }
   const [netid] = email.split('@')
   const name = req.get('displayname') || null
