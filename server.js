@@ -4,7 +4,6 @@ require('dotenv').config()
 const app = require('./app')
 const server = require('http').Server(app)
 const nextJs = require('next')
-const co = require('co')
 
 const PORT = process.env.PORT || 3000
 
