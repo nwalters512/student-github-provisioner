@@ -19,6 +19,8 @@ app.use(require('./middleware/pretty-print-json'))
 
 // API routes
 app.use(`${baseUrl}/api/courses`, require('./api/courses'))
+app.use(`${baseUrl}/api/whoami`, require('./api/whoami'))
+app.use(`${baseUrl}/api/github`, require('./api/github'))
 
 // Error handling! This middleware should always be the last one in the chain.
 app.use(require('./middleware/handle-error'))

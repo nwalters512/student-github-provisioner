@@ -1,6 +1,6 @@
 module.exports = {
   semester: 'Fall 2018',
-  host: 'https://github-dev.cs.illinois.edu/',
+  host: 'https://github-dev.cs.illinois.edu',
   courses: [{
     id: 'cs225',
     shortname: 'CS 225',
