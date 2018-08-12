@@ -1,6 +1,7 @@
 /* eslint global-require: "off", no-console: "off" */
 require('dotenv').config()
 
+// eslint-disable-next-line import/order
 const app = require('./app')
 const server = require('http').Server(app)
 const nextJs = require('next')

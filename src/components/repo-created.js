@@ -29,7 +29,7 @@ const RepoCreated = ({ classes, repoUrl }) => {
     <Card>
       <CardContent>
         <Typography variant="headline" gutterBottom>
-          You're all set!
+          You&apos;re all set!
         </Typography>
         <Typography>
           You can find your repo at <a href={repoUrl}>{repoUrl}</a>.

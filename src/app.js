@@ -5,8 +5,6 @@ const rewrite = require('express-urlrewrite')
 
 const { baseUrl } = require('./util')
 
-const DEV = ['production', 'staging'].indexOf(process.env.NODE_ENV) === -1
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -18,7 +16,6 @@ app.use(rewrite(`${baseUrl}/static/*`, '/static/$1'))
 app.use(require('./middleware/pretty-print-json'))
 
 // API routes
-app.use(`${baseUrl}/api/courses`, require('./api/courses'))
 app.use(`${baseUrl}/api/whoami`, require('./api/whoami'))
 app.use(`${baseUrl}/api/github`, require('./api/github'))
 

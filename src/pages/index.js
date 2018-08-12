@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -62,7 +64,6 @@ class Index extends React.Component {
 
   transition(action, extraState = {}) {
     const { page } = this.state
-    console.log(`Transitioning from ${page} with action ${action}`)
     const nextPage = transitionMatrix[page][action]
     if (nextPage) {
       this.setState({ page: nextPage, ...extraState })
@@ -153,6 +154,10 @@ class Index extends React.Component {
       </div>
     )
   }
+}
+
+Index.propTypes = {
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(Index)
