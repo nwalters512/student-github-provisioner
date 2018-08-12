@@ -31,7 +31,7 @@ const ConfirmCourse = ({
     <Card>
       <CardContent>
         <Typography variant="headline" gutterBottom>
-          Let's confirm that
+          Let&apos;s confirm that
         </Typography>
         <Typography>
           This will create a repo for <strong>{netid}</strong> in
@@ -63,6 +63,7 @@ ConfirmCourse.propTypes = {
   netid: PropTypes.string.isRequired,
   onConfirmed: PropTypes.func.isRequired,
   onCanceled: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(ConfirmCourse);

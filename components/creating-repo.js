@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -30,6 +31,10 @@ const CreatingRepo = ({
       </CardContent>
     </Card>
   )
+}
+
+CreatingRepo.propTypes = {
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(CreatingRepo);
