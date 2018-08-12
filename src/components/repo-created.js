@@ -50,6 +50,7 @@ const RepoCreated = ({ classes, repoUrl }) => {
 
 RepoCreated.propTypes = {
   repoUrl: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(RepoCreated)

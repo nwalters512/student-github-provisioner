@@ -57,6 +57,7 @@ const ErrorPage = ({ classes, onRetry }) => {
 
 ErrorPage.propTypes = {
   onRetry: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(ErrorPage)
