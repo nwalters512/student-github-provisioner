@@ -42,7 +42,9 @@ const transitionMatrix = {
     success: 'repoCreated',
     error: 'error',
   },
-  repoCreated: {},
+  repoCreated: {
+    createAnother: 'selectCourse',
+  },
   error: {
     retry: 'loadingIdentity',
   },
@@ -132,7 +134,13 @@ class Index extends React.Component {
         content = <CreatingRepo />
         break
       case 'repoCreated':
-        content = <RepoCreated repoStatus={repoStatus} repoUrl={repoUrl} />
+        content = (
+          <RepoCreated
+            repoStatus={repoStatus}
+            repoUrl={repoUrl}
+            createAnotherRepo={() => this.transition('createAnother')}
+          />
+        )
         break
       case 'error':
         content = <ErrorPage onRetry={() => this.retry()} />

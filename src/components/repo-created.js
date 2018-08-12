@@ -15,16 +15,23 @@ const GithubIcon = props => (
 )
 
 const styles = theme => ({
+  buttonContainer: {
+    display: 'flex',
+    marginTop: 4 * theme.spacing.unit,
+  },
   extendedIcon: {
     marginRight: theme.spacing.unit,
   },
   githubButton: {
-    display: 'flex',
-    marginTop: theme.spacing.unit * 5,
+    marginTop: 5 * theme.spacing.unit,
+    marginLeft: 'auto',
+  },
+  createAnotherButton: {
+    marginTop: 2 * theme.spacing.unit,
   },
 })
 
-const RepoCreated = ({ classes, repoUrl }) => {
+const RepoCreated = ({ classes, repoUrl, createAnotherRepo }) => {
   return (
     <Card>
       <CardContent>
@@ -38,10 +45,19 @@ const RepoCreated = ({ classes, repoUrl }) => {
           variant="extendedFab"
           color="primary"
           href={repoUrl}
+          fullWidth
           className={classes.githubButton}
         >
           <GithubIcon className={classes.extendedIcon} />
           Go to repo
+        </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={() => createAnotherRepo()}
+          className={classes.createAnotherButton}
+        >
+          Create another repo
         </Button>
       </CardContent>
     </Card>
@@ -50,6 +66,7 @@ const RepoCreated = ({ classes, repoUrl }) => {
 
 RepoCreated.propTypes = {
   repoUrl: PropTypes.string.isRequired,
+  createAnotherRepo: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
 

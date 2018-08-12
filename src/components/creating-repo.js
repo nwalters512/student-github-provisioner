@@ -22,6 +22,9 @@ const CreatingRepo = ({ classes }) => {
   return (
     <Card>
       <CardContent className={classes.cardContent}>
+        <Typography variant="headline" gutterBottom>
+          Creating repo
+        </Typography>
         <Typography>We&apos;ll have your repo ready soon!</Typography>
         <CircularProgress className={classes.progress} />
       </CardContent>

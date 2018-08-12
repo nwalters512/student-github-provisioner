@@ -37,7 +37,7 @@ const ErrorPage = ({ classes, onRetry }) => {
           Womp womp
         </Typography>
         <Typography>
-          Something went wrong. Rentry in a bit, and contact course staff if the
+          Something went wrong. Retry in a bit, and contact course staff if the
           problem persists.
         </Typography>
         <div className={classes.buttonContainer}>
