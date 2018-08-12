@@ -19,27 +19,15 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
   },
   githubButton: {
-    backgroundColor: 'black',
-    color: 'white',
     display: 'flex',
     marginTop: theme.spacing.unit * 5,
-    '&:hover': {
-      backgroundColor: 'black',
-    },
   },
 })
 
 const RepoCreated = ({
   classes,
-  repoStatus,
   repoUrl,
 }) => {
-  let message
-  if (repoStatus === 'created') {
-    message = 'Repo created!'
-  } else {
-    message = 'Repo already exists!'
-  }
   return (
     <Card>
       <CardContent>
@@ -49,7 +37,7 @@ const RepoCreated = ({
         <Typography>
           You can find your repo at <a href={repoUrl}>{repoUrl}</a>.
         </Typography>
-        <Button variant="extendedFab" href={repoUrl} className={classes.githubButton}>
+        <Button variant="extendedFab" color="primary" href={repoUrl} className={classes.githubButton}>
           <GithubIcon className={classes.extendedIcon} />
           Go to repo
         </Button>
@@ -59,7 +47,6 @@ const RepoCreated = ({
 }
 
 RepoCreated.propTypes = {
-  repoStatus: PropTypes.oneOf(['created', 'exists']),
   repoUrl: PropTypes.string.isRequired,
 }
 
