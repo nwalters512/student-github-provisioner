@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import config from '../config';
 
-import CourseList from '../components/course-list'
+import CourseList from './course-list'
 
 const SelectCourse = ({ onCourseSelected }) => (
   <Card>

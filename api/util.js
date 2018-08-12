@@ -3,6 +3,7 @@ module.exports.getIdentity = (req) => {
     // Fake data
     const netid = process.env.NETID || 'dev'
     return {
+      name: 'Test User',
       email: `${netid}@illinois.edu`,
       netid,
     }
@@ -12,7 +13,8 @@ module.exports.getIdentity = (req) => {
     return null;
   }
   const [netid] = email.split('@')
-  return { email, netid }
+  const name = req.get('displayname') || null
+  return { email, netid, name }
 }
 
 /**

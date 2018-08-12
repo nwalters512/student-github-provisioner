@@ -8,3 +8,8 @@ export const fetchCourses = async () => {
   const res = await axios.get('/api/courses')
   return res.data
 }
+
+export const whoami = async () => {
+  const res = await axios.get('/api/whoami')
+  return res.data
+}
