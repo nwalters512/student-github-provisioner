@@ -15,6 +15,22 @@ octokit.authenticate({
   token: process.env.GITHUB_TOKEN,
 })
 
+/**
+ * Creates a repo for the authenticated user in the given course.
+ * 
+ * For a successful creation, the response will contain a "url" field that
+ * points to the new repository, as well as a "status" field that will be
+ * "exists" if the repository already existed, or "created" if the repository
+ * was newly created.
+ * 
+ * For an error, the response will contain a human-readable "message" and one
+ * of the following "code"s:
+ * 
+ * no_auth: The user was not authenticated (shouldn't be possible with Shib)
+ * no_course: The specified course was not found
+ * no_github_user: The user does not exist on GitHub
+ * github_error: There was an unspecified GitHub error
+ */
 router.post('/:courseId', safeAsync(async (req, res) => {
   const identity = getIdentity(req)
   if (!identity) {
@@ -46,25 +62,28 @@ router.post('/:courseId', safeAsync(async (req, res) => {
     })
   }
 
+  const unknownGithubError = (err) => {
+    console.error(err)
+    res.status(500).send({
+      error: 'Unknown response from GitHub; please try again laster.',
+      code: 'github_error',
+    })
+  }
+
   // Ensure that the user exists on GitHub
   try {
     await octokit.users.getForUser({
       username: netid,
     })
   } catch (e) {
-    if (e.message === 'Not Found') {
-      res.status(400).send({
+    if (e.code === 404) {
+      // Response: User does not exist on GitHub -- have them log in
+      res.status(404).send({
         error: 'User was not found on GitHub',
         code: 'no_github_user',
       })
-      // Response: User does not exist on GitHub -- have them log in
-      res.render('loginToGHE', {});
     } else {
-      console.error(e)
-      res.status(500).send({
-        error: 'Unknown response from GitHub; please try again laster.',
-        code: 'github_err',
-      })
+      unknownGithubError(e)
     }
     return
   }
@@ -84,11 +103,7 @@ router.post('/:courseId', safeAsync(async (req, res) => {
       // Response: Repo already exists
       respondWithUrl('exists')
     } else {
-      console.error(e)
-      res.status(500).send({
-        error: 'Unknown response from GitHub; please try again laster.',
-        code: 'github_err',
-      })
+      unknownGithubError(e)
     }
     return;
   }
@@ -102,11 +117,7 @@ router.post('/:courseId', safeAsync(async (req, res) => {
       permission: "push"
     })
   } catch (e) {
-    console.error(e)
-    res.status(500).send({
-      error: 'Unknown response from GitHub; please try again laster.',
-      code: 'github_err',
-    })
+    unknownGithubError(e)
     return
   }
 

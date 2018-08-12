@@ -22,7 +22,6 @@ const styles = theme => ({
 
 class Index extends React.Component {
   static async getInitialProps({ req }) {
-    console.log('here we go!');
     let netid = null;
     if (req) {
       if (process.env.NODE_ENV !== 'production') {

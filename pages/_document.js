@@ -1,11 +1,20 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
 
+import { baseUrl } from '../util';
+
 class MyDocument extends Document {
   render() {
     const { pageContext } = this.props;
+
+    // If we're deployed to anywhere other than the server root, we'll have to
+    // store our root path that here so that the client can access it.
+    const script = {
+      __html: `window.BASE_URL = '${baseUrl}'; window.NODE_ENV = ${process.env.NODE_ENV};`,
+    }
 
     return (
       <html lang="en" dir="ltr">
@@ -26,6 +35,7 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
+          <script dangerouslySetInnerHTML={script} />
         </Head>
         <body>
           <Main />
