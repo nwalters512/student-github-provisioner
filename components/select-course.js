@@ -12,12 +12,12 @@ import CourseList from './course-list'
 const SelectCourse = ({ onCourseSelected }) => (
   <Card>
     <CardContent>
-      <Typography variant="display1" gutterBottom>
+      <Typography variant="headline" gutterBottom>
         Hey there!
       </Typography>
       <Typography>
         This tool will help you create a GitHub repository for your course.
-        To get started, please select your course from the list below.
+        To get started, select your course from the list below.
       </Typography>
     </CardContent>
     <CourseList courses={config.courses} onCourseSelected={onCourseSelected} />

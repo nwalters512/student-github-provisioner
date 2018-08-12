@@ -13,3 +13,8 @@ export const whoami = async () => {
   const res = await axios.get('/api/whoami')
   return res.data
 }
+
+export const createRepo = async (courseId) => {
+  const res = await axios.post(`/api/github/${courseId}`)
+  return res.data
+}

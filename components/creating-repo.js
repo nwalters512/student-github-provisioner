@@ -1,10 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -19,7 +18,6 @@ const styles = theme => ({
 })
 
 const CreatingRepo = ({
-  onCreated,
   classes
 }) => {
   return (
@@ -32,10 +30,6 @@ const CreatingRepo = ({
       </CardContent>
     </Card>
   )
-}
-
-CreatingRepo.propTypes = {
-  onCreated: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(CreatingRepo);

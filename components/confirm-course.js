@@ -24,20 +24,18 @@ const ConfirmCourse = ({
   onCanceled,
   courseId,
   netid,
-  classes
+  classes,
 }) => {
   const course = config.courses.find(c => c.id === courseId)
   return (
     <Card>
       <CardContent>
-        <Typography gutterBottom>
-          Thanks! Let's make sure everything looks right before we create your repo.
+        <Typography variant="headline" gutterBottom>
+          Let's confirm that
         </Typography>
         <Typography>
-          <strong>NetID:</strong> {netid}
-        </Typography>
-        <Typography>
-          <strong>Course:</strong> {course.shortname} ({course.name})
+          This will create a repo for <strong>{netid}</strong> in
+          the course <strong>{course.shortname}</strong>.
         </Typography>
         <div className={classes.buttonContainer}>
           <Button

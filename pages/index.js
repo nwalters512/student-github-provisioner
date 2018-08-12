@@ -7,8 +7,9 @@ import { withStyles } from '@material-ui/core/styles'
 import SelectCourse from '../components/select-course'
 import ConfirmCourse from '../components/confirm-course'
 import CreatingRepo from '../components/creating-repo'
+import RepoCreated from '../components/repo-created'
 
-import { whoami } from '../client-data'
+import { whoami, createRepo } from '../client-data'
 
 const styles = _theme => ({
   container: {
@@ -21,90 +22,112 @@ const styles = _theme => ({
   }
 })
 
+// State machines? In my app? It's more likely than you think!
+const transitionMatrix = {
+  'loadingIdentity': {
+    'success': 'selectCourse',
+    'error': null,
+  },
+  'selectCourse': {
+    'select': 'confirmCourse',
+  },
+  'confirmCourse': {
+    'confirm': 'creatingRepo',
+    'cancel': 'selectCourse',
+  },
+  'creatingRepo': {
+    'success': 'repoCreated',
+    'error': null,
+  },
+  'repoCreated': {},
+}
+
 class Index extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      loading: true,
-      page: 0,
+      page: 'loadingIdentity',
       courseId: null,
     }
   }
 
   componentDidMount() {
     whoami().then(data => {
-      this.setState({
-        loading: false,
-        ...data,
+      this.transition('success', data)
+    }).catch((err) => {
+      console.error(err)
+      this.transition('error')
+    })
+  }
+
+  transition(action, extraState = {}) {
+    const { page } = this.state;
+    console.log(`Transitioning from ${page} with action ${action}`)
+    const nextPage = transitionMatrix[page][action]
+    if (nextPage) {
+      this.setState({ page: nextPage, ...extraState })
+    } else {
+      throw new Error(`Cannot transition from ${page} with action ${action}`)
+    }
+  }
+
+  confirmCourse() {
+    this.transition('confirm')
+
+    const { courseId } = this.state
+    createRepo(courseId).then(data => {
+      this.transition('success', {
+        repoStatus: data.status,
+        repoUrl: data.url,
       })
-    }).catch(() => {
-      this.setState({
-        loading: false,
-      })
-    })
-  }
-
-  onCourseSelected(courseId) {
-    this.setState({
-      page: 1,
-      courseId,
-    })
-  }
-
-  onCourseConfirmed() {
-    this.setState({
-      page: 2,
-      courseId: null,
-    })
-  }
-
-  onCourseCanceled() {
-    this.setState({
-      page: 0,
-      courseId: null,
+    }).catch(err => {
+      console.error(err)
+      this.transition('error')
     })
   }
 
   render() {
     const {
-      loading,
       page,
       netid,
       courseId,
+      repoStatus,
+      repoUrl,
     } = this.state;
     const { classes } = this.props;
 
     let content;
-    if (loading) {
-      content = null
-    } else {
-      switch (page) {
-        case 0:
-          content = (
-            <SelectCourse
-              onCourseSelected={(id) => this.onCourseSelected(id)}
-            />
-          )
-          break;
-        case 1:
-          content = (
-            <ConfirmCourse
-              netid={netid}
-              courseId={courseId}
-              onConfirmed={() => this.onCourseConfirmed()}
-              onCanceled={() => this.onCourseCanceled()}
-            />
-          )
-          break;
-        case 2:
-          content = (
-            <CreatingRepo />
-          )
-          break;
-        default:
-         content = null;
-      }
+    switch (page) {
+      case 'selectCourse':
+        content = (
+          <SelectCourse
+            onCourseSelected={(id) => this.transition('select', { courseId: id })}
+          />
+        )
+        break;
+      case 'confirmCourse':
+        content = (
+          <ConfirmCourse
+            netid={netid}
+            courseId={courseId}
+            onConfirmed={() => this.confirmCourse()}
+            onCanceled={() => this.transition('cancel', { courseId: null })}
+          />
+        )
+        break;
+      case 'creatingRepo':
+        content = (
+          <CreatingRepo />
+        )
+        break;
+      case 'repoCreated':
+        content = (
+          <RepoCreated repoStatus={repoStatus} repoUrl={repoUrl} />
+        )
+        break;
+      default:
+        content = null;
     }
     
     return (

@@ -13,7 +13,7 @@ class MyDocument extends Document {
     // If we're deployed to anywhere other than the server root, we'll have to
     // store our root path that here so that the client can access it.
     const script = {
-      __html: `window.BASE_URL = '${baseUrl}'; window.NODE_ENV = ${process.env.NODE_ENV};`,
+      __html: `window.BASE_URL = '${baseUrl}'; window.NODE_ENV = '${process.env.NODE_ENV}';`,
     }
 
     return (
