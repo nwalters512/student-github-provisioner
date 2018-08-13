@@ -45,6 +45,7 @@ const RepoCreated = ({ classes, repoUrl, createAnotherRepo }) => {
           variant="extendedFab"
           color="primary"
           href={repoUrl}
+          target="_blank"
           fullWidth
           className={classes.githubButton}
         >
@@ -52,7 +53,7 @@ const RepoCreated = ({ classes, repoUrl, createAnotherRepo }) => {
           Go to repo
         </Button>
         <Button
-          variant="contained"
+          variant="outlined"
           fullWidth
           onClick={() => createAnotherRepo()}
           className={classes.createAnotherButton}

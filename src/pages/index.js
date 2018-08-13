@@ -91,7 +91,7 @@ class Index extends React.Component {
         })
       })
       .catch(err => {
-        if (err.response.data.code === 'no_github_user') {
+        if (err.response.data && err.response.data.code === 'no_github_user') {
           this.transition('noGithubUser')
         } else {
           // Generic error handling
