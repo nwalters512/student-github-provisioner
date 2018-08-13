@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development node src/server.js",
     "build": "rimraf build && cpx \"src\\**\\*\" build && next build build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node build/server.js",
     "lint": "eslint --ext js src/ ",
     "fix-lint": "eslint --ext js src/ --fix",
     "prettier": "prettier --write \"src/**/*.js\"",

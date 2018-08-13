@@ -10,6 +10,7 @@ import SelectCourse from '../components/select-course'
 import ConfirmCourse from '../components/confirm-course'
 import CreatingRepo from '../components/creating-repo'
 import RepoCreated from '../components/repo-created'
+import LoginToGithub from '../components/login-to-github'
 import ErrorPage from '../components/error'
 
 import { whoami, createRepo } from '../client-data'
@@ -40,10 +41,14 @@ const transitionMatrix = {
   },
   creatingRepo: {
     success: 'repoCreated',
+    noGithubUser:'noGithubUser',
     error: 'error',
   },
   repoCreated: {
     createAnother: 'selectCourse',
+  },
+  noGithubUser: {
+    login: 'confirmCourse',
   },
   error: {
     retry: 'loadingIdentity',
@@ -86,8 +91,13 @@ class Index extends React.Component {
         })
       })
       .catch(err => {
-        console.error(err)
-        this.transition('error')
+        if (err.response.data.code === 'no_github_user') {
+          this.transition('noGithubUser')
+        } else {
+          // Generic error handling
+          console.error(err)
+          this.transition('error')
+        }
       })
   }
 
@@ -140,6 +150,11 @@ class Index extends React.Component {
             repoUrl={repoUrl}
             createAnotherRepo={() => this.transition('createAnother')}
           />
+        )
+        break
+      case 'noGithubUser':
+        content = (
+          <LoginToGithub onLogin={() => this.transition('login')}/>
         )
         break
       case 'error':

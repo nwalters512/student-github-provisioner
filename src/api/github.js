@@ -6,15 +6,6 @@ const Octokit = require('@octokit/rest')
 const { getIdentity, safeAsync } = require('./util')
 const config = require('../config')
 
-const octokit = new Octokit({
-  timeout: 5000,
-  baseUrl: `${config.host}/api/v3`,
-})
-octokit.authenticate({
-  type: 'token',
-  token: process.env.GITHUB_TOKEN,
-})
-
 /**
  * Creates a repo for the authenticated user in the given course.
  *
@@ -28,6 +19,7 @@ octokit.authenticate({
  *
  * no_auth: The user was not authenticated (shouldn't be possible with Shib)
  * no_course: The specified course was not found
+ * no_token: There is no Github token present for the specified course
  * no_github_user: The user does not exist on GitHub
  * github_error: There was an unspecified GitHub error
  */
@@ -56,6 +48,25 @@ router.post(
       })
       return
     }
+
+    // Let's make sure we have an auth token for this course
+    const tokenEnvVar = `GITHUB_TOKEN_${course.id.toUpperCase()}`
+    const githubToken = process.env[tokenEnvVar]
+    if (!githubToken) {
+      res.status(500).send({
+        message: `Course ${courseId} has no github token provided by ${tokenEnvVar}`,
+        code: 'no_token',
+      })
+    }
+
+    const octokit = new Octokit({
+      timeout: 5000,
+      baseUrl: `${config.host}/api/v3`,
+    })
+    octokit.authenticate({
+      type: 'token',
+      token: githubToken,
+    })
 
     const respondWithUrl = status => {
       res.send({

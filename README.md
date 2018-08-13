@@ -4,9 +4,8 @@ A simple webapp to provision GitHub repositories for students.
 
 ### Adding your course
 
-The supported courses are defined in `config.js`. To add your course, submit
-a pull request with your course added to the config. A course looks like the
-following:
+The supported courses are defined in `config.js`. To add your course, simply
+add it to the config.
 
 ```js
 {
@@ -19,7 +18,13 @@ following:
 
 Note that `id` must be unique among all courses. `org` refers to a Github
 organization that the repos will be created in. This should be created prior
-to adding your course to this app.
+to adding the course to this app.
+
+Each course needs an Github token that has permissions to create repos in that
+course's organization. It must be provided in an environment variable like
+`GITHUB_TOKEN_[uppercase course ID]`. For example, the token for the example
+CS 225 course about would provide a token in `GITHUB_TOKEN_CS225`, since the
+course ID is `cs225`.
 
 ### Running locally
 
@@ -27,14 +32,17 @@ Run `npm install` to install all necessary dependencies.
 
 Run `npm run dev` to start a local dev server.
 
-In production, this will be run with an admin token that has the ability to
-create repositories in any organization. When running locally, you'll
-likely want to test with a more limited token. Create a GitHub token with
-the ability to create repositories and put it in a `.env` file at the root
-of this repository:
+Create a GitHub token with the ability to create repositories in your course's
+organization and put it in a `.env` file at the root of this repository:
 
 ```
-GITHUB_TOKEN=abcde12345
+GITHUB_TOKEN_CS225=abcde12345
+```
+
+You can also provide it directly on the command line:
+
+```
+GITHUB_TOKEN_CS225=abcde12345 npm run dev
 ```
 
 This will allow you to test repo creation on any organization that you have
@@ -47,3 +55,5 @@ locally, it assumes a static NetID of `dev`. To change this, you can set a
 ```
 NETID=mynetid
 ```
+
+Like the Github token, it can also be provided directly when starting the server.
