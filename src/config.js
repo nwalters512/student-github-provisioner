@@ -1,5 +1,3 @@
-const { env } = require('./util')
-
 module.exports = {
   semester: 'Fall 2018',
   host: 'https://github-dev.cs.illinois.edu',
@@ -15,15 +13,11 @@ module.exports = {
       shortname: 'CS 241',
       name: 'System Programming',
       org: 'cs241fa18',
+    }, {
+      id: 'test',
+      shortname: 'Test',
+      name: 'Test Repo Creation',
+      org: 'github-provisioner-test',
     },
   ],
-}
-
-if (env === 'development') {
-  module.exports.courses.push({
-    id: 'test',
-    shortname: 'Test',
-    name: 'Test Repo Creation',
-    org: 'github-provisioner-test',
-  })
 }
